@@ -34,6 +34,7 @@ def analytics_page():
             Simulation()
         # Oil_Production_KPIs()
 
+
     elif selected_use_case == "Accident Analysis":
         st.markdown("<h1 style='text-align: center;'>Accident Analysis</h1>", unsafe_allow_html=True)
         EF_KPIs()
