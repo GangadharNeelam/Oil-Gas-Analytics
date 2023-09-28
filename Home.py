@@ -32,9 +32,8 @@ def analytics_page():
             Oil_Production_KPIs()
         elif selected_option == "Simulation":
             Simulation()
-        # Oil_Production_KPIs() Gangadhar shyam
+            st.write("Simulation")
 
-    # st.write("Oil Production Prediction")
     elif selected_use_case == "Accident Analysis":
         st.markdown("<h1 style='text-align: center;'>Accident Analysis</h1>", unsafe_allow_html=True)
         EF_KPIs()
