@@ -13,7 +13,7 @@ from EquipmentFailures.pages.Dashboard_EF import Dashboard_EF
 from EquipmentFailures.pages.Simulation_EF import Simulation_EF
 from SeismicDataAnalysis.pages.seismic_analysis import seismic_analysis_page
 
-st.set_page_config(page_title="Oil&GasAnalytics", page_icon=":tada:", layout="wide")
+st.set_page_config(page_title="Oil&GasAnalytics", layout="wide")
 header_html = """
     <style>
         .header {
