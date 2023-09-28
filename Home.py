@@ -40,6 +40,7 @@ def analytics_page():
     if selected_use_case == "Oil Production Prediction":
         st.markdown("<h1 style='text-align: center;'>Oil Production Prediction</h1>", unsafe_allow_html=True)
         # selected_option = st.selectbox("Select a page", ["KPIs", "Dashboard", "Simulation"])
+        st.markdown("<br><br>", unsafe_allow_html=True)
         selected_option = option_menu(
             options=["KPIs", "Dashboard", "Simulation"],
             orientation="horizontal",
