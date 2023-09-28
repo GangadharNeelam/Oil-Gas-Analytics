@@ -59,7 +59,7 @@ def analytics_page():
         
     elif selected_use_case == "Equipment Failures":
         st.markdown("<h1 style='text-align: center;'>Equipment Failures</h1>", unsafe_allow_html=True)
-        
+        st.markdown("<br><br>", unsafe_allow_html=True)
         selected_option = option_menu(
             options=["Dashboard", "Simulation"],
             orientation="horizontal",
@@ -71,6 +71,7 @@ def analytics_page():
             Simulation_EF()
 
     elif selected_use_case == "Seismic Data Analysis":
+        st.markdown("<br><br>", unsafe_allow_html=True)
         st.markdown("<h1 style='text-align: center;'>Seismic Data Analysis</h1>", unsafe_allow_html=True)
         seismic_analysis_page()
 
