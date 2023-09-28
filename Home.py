@@ -13,13 +13,32 @@ from EquipmentFailures.pages.Dashboard_EF import Dashboard_EF
 from EquipmentFailures.pages.Simulation_EF import Simulation_EF
 from SeismicDataAnalysis.pages.seismic_analysis import seismic_analysis_page
 
+st.set_page_config(page_title="Oil&GasAnalytics", page_icon=":tada:", layout="wide")
+header_html = """
+    <style>
+        .header {
+            background-color: red;
+            color: white;
+            text-align: center;
+            padding: 2px;
+        }
+        .company-name {
+            font-weight: bold;
+            font-size: 24px;
+        }
+    </style>
+    <div class="header">
+        <p class="company-name">Oil Gas Analytics</p>
+    </div>
+"""
+
 def analytics_page():
 
     selected_use_case = st.sidebar.selectbox("Select a use case", ["Oil Production Prediction", "Accident Analysis", "Equipment Failures", "Seismic Data Analysis"])
 
     # Display content based on the selected use case
     if selected_use_case == "Oil Production Prediction":
-        st.markdown("<h1 style='text-align: center;'>Oil Production Prediction</h1>", unsafe_allow_html=True)
+        # st.markdown("<h1 style='text-align: center;'>Oil Production Prediction</h1>", unsafe_allow_html=True)
         # selected_option = st.selectbox("Select a page", ["KPIs", "Dashboard", "Simulation"])
         selected_option = option_menu(
             options=["KPIs", "Dashboard", "Simulation"],
@@ -34,11 +53,11 @@ def analytics_page():
             Simulation()
             st.write("Simulation")
     elif selected_use_case == "Accident Analysis":
-        st.markdown("<h1 style='text-align: center;'>Accident Analysis</h1>", unsafe_allow_html=True)
+        # st.markdown("<h1 style='text-align: center;'>Accident Analysis</h1>", unsafe_allow_html=True)
         EF_KPIs()
         
     elif selected_use_case == "Equipment Failures":
-        st.markdown("<h1 style='text-align: center;'>Equipment Failures</h1>", unsafe_allow_html=True)
+        # st.markdown("<h1 style='text-align: center;'>Equipment Failures</h1>", unsafe_allow_html=True)
         
         selected_option = option_menu(
             options=["Dashboard", "Simulation"],
@@ -51,7 +70,7 @@ def analytics_page():
             Simulation_EF()
 
     elif selected_use_case == "Seismic Data Analysis":
-        st.markdown("<h1 style='text-align: center;'>Seismic Data Analysis</h1>", unsafe_allow_html=True)
+        # st.markdown("<h1 style='text-align: center;'>Seismic Data Analysis</h1>", unsafe_allow_html=True)
         seismic_analysis_page()
 
 if __name__ == "__main__":
@@ -63,7 +82,7 @@ if __name__ == "__main__":
         )
 
     if selected_page == "Home":
-        st.markdown("<h1 style='text-align: center;'>Oil & Gas Analytics Platform</h1>", unsafe_allow_html=True)
+        # st.markdown("<h1 style='text-align: center;'>Oil & Gas Analytics Platform</h1>", unsafe_allow_html=True)
         st.subheader('About')
         st.write("At Oil & Gas Analytix, our expertise lies in the art of turning raw data into actionable intelligence. With a sophisticated blend of Exploratory Data Analysis (EDA) and advanced simulation techniques, we illuminate the complex dynamics of the oil and gas industry. Our solutions don't just stop at numbers; we craft insightful graphs that offer a clear and intuitive understanding of trends and patterns.")
         st.subheader('Capabilities')
