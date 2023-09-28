@@ -91,5 +91,5 @@ if __name__ == "__main__":
         st.image(image, caption='Oil & Gas Analytics Platform',use_column_width=True)
 
     elif selected_page == "Analytics":
-        st.markdown("<h1 style='text-align: center;'>Analytics Overview</h1>", unsafe_allow_html=True)
+        # st.markdown("<h1 style='text-align: center;'>Analytics Overview</h1>", unsafe_allow_html=True)
         analytics_page()
