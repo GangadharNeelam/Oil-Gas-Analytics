@@ -16,6 +16,7 @@ def seismic_analysis_page():
     def calculate_amplitude_envelope(seismic_slice):
         return np.abs(hilbert(seismic_slice))
 
+
     # Define a caching function for loading fault data
     @st.cache_data
     def load_fault_data(filename, header_location):
