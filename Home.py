@@ -15,15 +15,11 @@ from SeismicDataAnalysis.pages.seismic_analysis import seismic_analysis_page
 
 def analytics_page():
 
-    # selected_use_case = option_menu(
-    #     options=["Oil Production Prediction", "Accident Analysis", "Equipment Failures", "Seismic Data Analysis"],
-    #     orientation="horizontal",
-    #     menu_title=None)
-    
     selected_use_case = st.sidebar.selectbox("Select a use case", ["Oil Production Prediction", "Accident Analysis", "Equipment Failures", "Seismic Data Analysis"])
 
     # Display content based on the selected use case
     if selected_use_case == "Oil Production Prediction":
+        st.markdown("<h1 style='text-align: center;'>Oil Production Prediction</h1>", unsafe_allow_html=True)
         # selected_option = st.selectbox("Select a page", ["KPIs", "Dashboard", "Simulation"])
         selected_option = option_menu(
             options=["KPIs", "Dashboard", "Simulation"],
@@ -39,8 +35,10 @@ def analytics_page():
         # Oil_Production_KPIs()
 
     elif selected_use_case == "Accident Analysis":
+        st.markdown("<h1 style='text-align: center;'>Accident Analysis</h1>", unsafe_allow_html=True)
         EF_KPIs()
     elif selected_use_case == "Equipment Failures":
+        st.markdown("<h1 style='text-align: center;'>Equipment Failures</h1>", unsafe_allow_html=True)
         
         selected_option = option_menu(
             options=["Dashboard", "Simulation"],
@@ -53,6 +51,7 @@ def analytics_page():
             Simulation_EF()
 
     elif selected_use_case == "Seismic Data Analysis":
+        st.markdown("<h1 style='text-align: center;'>Seismic Data Analysis</h1>", unsafe_allow_html=True)
         seismic_analysis_page()
 
 if __name__ == "__main__":
@@ -74,5 +73,5 @@ if __name__ == "__main__":
         st.image(image, caption='Oil & Gas Analytics Platform',use_column_width=True)
 
     elif selected_page == "Analytics":
-        st.markdown("<h1 style='text-align: center;'>Analytics Overview</h1>", unsafe_allow_html=True)
+        # st.markdown("<h1 style='text-align: center;'>Analytics Overview</h1>", unsafe_allow_html=True)
         analytics_page()
