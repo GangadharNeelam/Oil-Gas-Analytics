@@ -9,3 +9,4 @@ plotly
 plotly_express
 scipy
 segyio
+streamlit_option_menu

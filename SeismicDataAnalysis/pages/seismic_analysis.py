@@ -24,9 +24,9 @@ def seismic_analysis_page():
             return segyio.tools.cube(segyfile)
 
     # Load seismic data
-    filename_pp = "./SeismicDataAnalysis/data/Equinor Synthetic model/issap20_Pp.sgy"
-    filename_ai = "./SeismicDataAnalysis/data/Equinor Synthetic model/issap20_AI.sgy"
-    filename_fault = "./SeismicDataAnalysis/data/Equinor Synthetic model/issap20_Fault.sgy"
+    filename_pp = "./issap20_Pp.sgy"
+    filename_ai = "./issap20_AI.sgy"
+    filename_fault = "./issap20_Fault.sgy"
 
     seismic = load_seismic_data(filename_pp, header_location=181)
     ai = load_seismic_data(filename_ai, header_location=181)
