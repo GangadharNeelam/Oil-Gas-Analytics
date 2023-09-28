@@ -1,0 +1,11 @@
+streamlit
+streamlit_lottie
+seaborn
+scikit-learn
+statsmodels
+xgboost
+lightgbm
+plotly
+plotly_express
+scipy
+segyio
