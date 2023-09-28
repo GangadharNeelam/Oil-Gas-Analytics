@@ -45,7 +45,6 @@ def analytics_page():
             orientation="horizontal",
             menu_title=None)
         
-        
         if selected_option == "Dashboard":
             Dashboard_EF()
         elif selected_option == "Simulation":
