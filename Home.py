@@ -32,7 +32,7 @@ def analytics_page():
             Oil_Production_KPIs()
         elif selected_option == "Simulation":
             Simulation()
-        # Oil_Production_KPIs() Gangadhar
+        # Oil_Production_KPIs() Gangadhar shyam
 
     # st.write("Oil Production Prediction")
     elif selected_use_case == "Accident Analysis":
