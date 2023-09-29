@@ -102,7 +102,7 @@ def analytics_page():
             menu_title=None)
         
         if selected_option == "Predictive Analytics":
-            Dashboard_EF()
+            st.write("")
         elif selected_option == "Simulation":
             seismic_analysis_page()
         elif selected_option == "KPIs":
