@@ -47,12 +47,12 @@ def analytics_page():
         # selected_option = st.selectbox("Select a page", ["KPIs", "Dashboard", "Simulation"])
         st.markdown("<br><br>", unsafe_allow_html=True)
         selected_option = option_menu(
-            options=["KPIs", "Dashboard", "Simulation"],
+            options=["KPIs", "Predictive Analytics", "Simulation"],
             orientation="horizontal",
             icons=["📊", "📈", "📉"],
             menu_title=None)
 
-        if selected_option == "Dashboard":
+        if selected_option == "Predictive Analytics":
             Dashboard()
         elif selected_option == "KPIs":
             Oil_Production_KPIs()
@@ -61,26 +61,53 @@ def analytics_page():
             st.write("Simulation")
     elif selected_use_case == "Accident Analysis":
         st.markdown("<h1 style='text-align: center;'>Accident Analysis</h1>", unsafe_allow_html=True)
-        EF_KPIs()
+        # EF_KPIs()
+        st.markdown("<br><br>", unsafe_allow_html=True)
+        selected_option = option_menu(
+            options=["KPIs", "Predictive Analytics", "Simulation"],
+            orientation="horizontal",
+            icons=["📊", "📈", "📉"],
+            menu_title=None)
+
+        if selected_option == "Predictive Analytics":
+            st.write("")
+        elif selected_option == "KPIs":
+            EF_KPIs()
+
         
     elif selected_use_case == "Equipment Failures":
         st.markdown("<h1 style='text-align: center;'>Equipment Failures</h1>", unsafe_allow_html=True)
         st.markdown("<br><br>", unsafe_allow_html=True)
         selected_option = option_menu(
-            options=["Dashboard", "Simulation"],
+            options=["KPIs", "Predictive Analytics", "Simulation"],
             orientation="horizontal",
-            icons=["📈", "📉"],
+            icons=["📊", "📈", "📉"],
             menu_title=None)
         
-        if selected_option == "Dashboard":
+        if selected_option == "Predictive Analytics":
             Dashboard_EF()
         elif selected_option == "Simulation":
             Simulation_EF()
+        elif selected_option == "KPIs":
+            st.write("")
 
     elif selected_use_case == "Seismic Data Analysis":
-        st.markdown("<br><br>", unsafe_allow_html=True)
         st.markdown("<h1 style='text-align: center;'>Seismic Data Analysis</h1>", unsafe_allow_html=True)
-        seismic_analysis_page()
+        st.markdown("<br><br>", unsafe_allow_html=True)
+        
+        selected_option = option_menu(
+            options=["KPIs", "Predictive Analytics", "Simulation"],
+            orientation="horizontal",
+            icons=["📊", "📈", "📉"],
+            menu_title=None)
+        
+        if selected_option == "Predictive Analytics":
+            Dashboard_EF()
+        elif selected_option == "Simulation":
+            seismic_analysis_page()
+        elif selected_option == "KPIs":
+            st.write("")
+        
 
 if __name__ == "__main__":
     with st.sidebar:

@@ -11,7 +11,7 @@ def Oil_Production_KPIs():
         st.write(data)
 
     # List of options
-    options = ["Overview", "Production Rate vs Proppant Volume",
+    options = ["Summary Statistics", "Production Rate vs Proppant Volume",
             "Average Production by Month", "Average Well Spacing by Treatment Company", "Production Trends"]
 
     # Display radio buttons for selecting one option
@@ -20,7 +20,7 @@ def Oil_Production_KPIs():
     # Display the selected option
     # st.write("You selected:", selected_option)
 
-    if selected_option == "Overview":
+    if selected_option == "Summary Statistics":
         # Create a multiselect dropdown for selecting features
         default_selected_options = ['proppant volume', 'well spacing', 'proppant fluid ratio', 'production']
         selected_options = st.multiselect("", data.columns.tolist(), default=default_selected_options)
