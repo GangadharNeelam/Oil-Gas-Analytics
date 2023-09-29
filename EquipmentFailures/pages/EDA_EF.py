@@ -85,56 +85,81 @@ def EF_KPIs():
             st.warning("Please select at least one feature.")
 
     elif selected_option == "Accident Locations":
-        df_scatter=data[['Accident Date/Time','Accident City','Pipeline/Facility Name','Pipeline Type', 'Accident Latitude', 'Accident Longitude','Accident State' ]]
+        df_scatter = data[['Accident Date/Time','Accident City','Pipeline/Facility Name','Pipeline Type', 'Accident Latitude', 'Accident Longitude','Accident State' ]]
         fig = px.scatter_mapbox(df_scatter, lat="Accident Latitude", lon="Accident Longitude", hover_name="Pipeline/Facility Name", 
                         hover_data=["Accident Date/Time", "Accident City",'Pipeline Type'],
                         color_discrete_sequence=["fuchsia"], zoom=3, height=500)
         fig.update_layout(mapbox_style="open-street-map")
         fig.update_layout(margin={"r":0,"t":0,"l":0,"b":0})
-        st.plotly_chart(fig)
+        
+        # Center the output
+        st.plotly_chart(fig, use_container_width=True)
+        st.markdown(
+            """
+            <style>
+            .streamlit-container {
+                display: flex;
+                justify-content: center;
+            }
+            </style>
+            """,
+            unsafe_allow_html=True,
+        )
+
 
     elif selected_option == "Loss per Each State":
-        df_bystate=data
-        df_scatter=data[['Accident Date/Time','Accident City','Pipeline/Facility Name','Pipeline Type', 'Accident Latitude', 'Accident Longitude','Accident State' ]]
-        df_bystate=df_scatter.groupby('Accident State').agg('count')['Pipeline Type']
-        df_bystate=df_bystate.reset_index()
-        df_bystate=df_bystate.rename(columns={"Pipeline Type": "Number of Accidents"})
-        columns=['Net Loss (Barrels)','All Costs']
+        df_bystate = data
+        df_scatter = data[['Accident Date/Time','Accident City','Pipeline/Facility Name','Pipeline Type', 'Accident Latitude', 'Accident Longitude','Accident State' ]]
+        df_bystate = df_scatter.groupby('Accident State').agg('count')['Pipeline Type']
+        df_bystate = df_bystate.reset_index()
+        df_bystate = df_bystate.rename(columns={"Pipeline Type": "Number of Accidents"})
+        columns = ['Net Loss (Barrels)','All Costs']
 
-        df_bystate=data.groupby('Accident State').agg(['sum','count'])
-        df_bystate=df_bystate[columns]
-        df_bystate['Number of Accident']=df_bystate['Net Loss (Barrels)']['count']
-        df_bystate['Num Barrels Lost']=df_bystate['Net Loss (Barrels)']['sum'].apply(lambda x: round(x,2))
-        df_bystate['Loss (million USD)']=(df_bystate['All Costs']['sum']/(1000000)).apply(lambda x: round(x,2))
-        df_bystate=df_bystate.drop(columns=columns,axis=1)
-        df_bystate=df_bystate.reset_index()
+        df_bystate = data.groupby('Accident State').agg(['sum','count'])
+        df_bystate = df_bystate[columns]
+        df_bystate['Number of Accident'] = df_bystate['Net Loss (Barrels)']['count']
+        df_bystate['Num Barrels Lost'] = df_bystate['Net Loss (Barrels)']['sum'].apply(lambda x: round(x,2))
+        df_bystate['Loss (million USD)'] = (df_bystate['All Costs']['sum'] / (1000000)).apply(lambda x: round(x,2))
+        df_bystate = df_bystate.drop(columns=columns, axis=1)
+        df_bystate = df_bystate.reset_index()
 
-        k=df_bystate.sort_values(by='Loss (million USD)',ascending=False)
+        k = df_bystate.sort_values(by='Loss (million USD)', ascending=False)
 
         for col in df_bystate.columns:
             df_bystate[col] = df_bystate[col].astype(str)
-            
-        df_bystate['text']=df_bystate['Accident State'] + '<br>' + \
+
+        df_bystate['text'] = df_bystate['Accident State'] + '<br>' + \
                             'Number of Accident: ' + df_bystate['Number of Accident']+ '<br>' + \
                             'Num Barrels Lost: ' + df_bystate['Num Barrels Lost']
 
-
         fig = go.Figure(data=go.Choropleth(
             locations=df_bystate['Accident State'], # Spatial coordinates
-            z = df_bystate['Loss (million USD)'].astype(float), # Data to be color-coded
-            locationmode = 'USA-states', # set of locations match entries in `locations`
-            colorscale = 'Reds',
+            z=df_bystate['Loss (million USD)'].astype(float), # Data to be color-coded
+            locationmode='USA-states', # set of locations match entries in `locations`
+            colorscale='Reds',
             text=df_bystate['text'],
-            colorbar_title = "Net Loss (million of USD)"
-            
+            colorbar_title="Net Loss (million of USD)"
         ))
 
         fig.update_layout(
-            title_text = 'Overall Loss (million of USD) by State from 2010-2017',
-            geo_scope='usa' # limite map scope to USA
+            title_text='Overall Loss (million of USD) by State from 2010-2017',
+            geo_scope='usa' # limit map scope to USA
         )
 
-        st.plotly_chart(fig)
+        # Center the output
+        st.plotly_chart(fig, use_container_width=True)
+        st.markdown(
+            """
+            <style>
+            .streamlit-container {
+                display: flex;
+                justify-content: center;
+            }
+            </style>
+            """,
+            unsafe_allow_html=True,
+        )
+
 
     elif selected_option == "State And Liquid Wise Loss":
         # Create a new DataFrame to group data by country and oil type
@@ -152,8 +177,21 @@ def EF_KPIs():
             width=1000,  # Increase the width
             height=500  # Increase the height
         )
-        # Show the plot
-        st.plotly_chart(fig)
+
+        # Center the output
+        st.plotly_chart(fig, use_container_width=True)
+        st.markdown(
+            """
+            <style>
+            .streamlit-container {
+                display: flex;
+                justify-content: center;
+            }
+            </style>
+            """,
+            unsafe_allow_html=True,
+        )
+
 
     elif selected_option == "Pipeline Locations":
         bar_colors = px.colors.qualitative.Set3
@@ -169,11 +207,20 @@ def EF_KPIs():
         fig.update_xaxes(title_text='Pipeline Location')
         fig.update_yaxes(title_text='Number of Pipelines')
 
-        # Show the plot
-        st.plotly_chart(fig)
-
+        # Center the output
+        st.plotly_chart(fig, use_container_width=True)
+        st.markdown(
+            """
+            <style>
+            .streamlit-container {
+                display: flex;
+                justify-content: center;
+            }
+            </style>
+            """,
+            unsafe_allow_html=True,
+        )
     elif selected_option == "Costs by Liquid Type and Pipeline Type":
-
         filtered_df = data[data['Pipeline Type'].isin(['ABOVEGROUND', 'TANK', 'UNDERGROUND']) &
                         data['Liquid Type'].isin(['CRUDE OIL', 'HVL OR OTHER FLAMMABLE OR TOXIC FLUID, GAS', 'REFINED AND/OR PETROLEUM PRODUCT (NON-HVL), LIQUID'])]
 
@@ -189,8 +236,20 @@ def EF_KPIs():
         # Customize the layout
         fig.update_layout(xaxis_title='Liquid Type', yaxis_title='Total Loss in USD')
 
-        # Show the plot
-        st.plotly_chart(fig)
+        # Center the output
+        st.plotly_chart(fig, use_container_width=True)
+        st.markdown(
+            """
+            <style>
+            .streamlit-container {
+                display: flex;
+                justify-content: center;
+            }
+            </style>
+            """,
+            unsafe_allow_html=True,
+        )
+
 
 # elif selected_category == "Predictive Analytics":
 
@@ -203,9 +262,8 @@ def EF_KPIs():
 
 
     elif selected_option == "Trends":
-
         trend_option = st.radio("Select Trend Type:", ["Yearly Trend", "Monthly Trend"])
-        
+
         data['datetime'] = pd.to_datetime(data['datetime'], format='%Y-%m-%d %H:%M:%S')
 
         if trend_option == "Monthly Trend":
@@ -229,7 +287,6 @@ def EF_KPIs():
             )
             fig.update_xaxes(tickvals=list(range(1, 13)), ticktext=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])
             fig.update_yaxes(title="Total Loss in USD")
-            st.plotly_chart(fig)
 
         elif trend_option == "Yearly Trend":
             yearly_production = data.groupby(data['datetime'].dt.year)['All Costs'].sum()
@@ -241,7 +298,20 @@ def EF_KPIs():
             )
             fig.update_xaxes(title="Year")
             fig.update_yaxes(title="Total Loss in USD")
-            st.plotly_chart(fig)
+
+        # Center the output
+        st.plotly_chart(fig, use_container_width=True)
+        st.markdown(
+            """
+            <style>
+            .streamlit-container {
+                display: flex;
+                justify-content: center;
+            }
+            </style>
+            """,
+            unsafe_allow_html=True,
+        )
 
 
     elif selected_option == "Accident Cause":
@@ -256,7 +326,20 @@ def EF_KPIs():
                     labels={'Count': 'Number of Accidents'},
                     color_discrete_sequence=custom_colors, category_orders={"Cause Category": main_causes['Cause Category']})
 
-        st.plotly_chart(fig)
+        # Center the output
+        st.plotly_chart(fig, use_container_width=True)
+        # st.markdown(
+        #     """
+        #     <style>
+        #     .streamlit-container {
+        #         display: flex;
+        #         justify-content: center;
+        #     }
+        #     </style>
+        #     """,
+        #     unsafe_allow_html=True,
+        # )
+
 
     # elif selected_option == "Root Causes":
     #     # Cross-tabulation
@@ -290,122 +373,96 @@ def EF_KPIs():
         OTHER_OUTSIDE_FORCE_DAMAGE = data[data['Cause Category'] == 'OTHER OUTSIDE FORCE DAMAGE']
         ALL_OTHER_CAUSES = data[data['Cause Category'] == 'ALL OTHER CAUSES']
 
-        #Material_Weld_Equipment_Failure 
-        trace0 = Material_Weld_Equipment_Failure ['Cause Subcategory'].value_counts()
+        trace0 = Material_Weld_Equipment_Failure['Cause Subcategory'].value_counts()
         trace0 = go.Bar(
-
-            y = trace0.values, 
-            x = trace0.index.values, 
-        name = 'Material/Weld/Equipment Failure Count', 
-        
+            y=trace0.values,
+            x=trace0.index.values,
+            name='Material/Weld/Equipment Failure Count',
             marker=dict(
                 color=trace0.values,
-                colorscale = 'Viridis',
-                reversescale = True
-                )
-        )
-        #Corrision 
-        trace1 = CORROSION['Cause Subcategory'].value_counts()
-        trace1 = go.Bar(
-            y = trace1.values, 
-            x = trace1.index.values, 
-            name = 'Corroison Count', 
-                marker=dict(
-                color=trace1.values,
-                colorscale = 'Viridis',
-                reversescale = True
-                )
+                colorscale='Viridis',
+                reversescale=True
+            )
         )
 
-        #Corrision 
         trace1 = CORROSION['Cause Subcategory'].value_counts()
         trace1 = go.Bar(
-            y = trace1.values, 
-            x = trace1.index.values, 
-            name = 'Corroison Count', 
-                marker=dict(
+            y=trace1.values,
+            x=trace1.index.values,
+            name='Corroison Count',
+            marker=dict(
                 color=trace1.values,
-                colorscale = 'Viridis',
-                reversescale = True
-                )
+                colorscale='Viridis',
+                reversescale=True
+            )
         )
 
-        #Corrision 
         trace2 = INCORRECT_OPERATION['Cause Subcategory'].value_counts()
         trace2 = go.Bar(
-            y = trace2.values, 
-            x = trace2.index.values, 
-            name = 'INCORRECT OPERATION COUNT', 
-            
-                marker=dict(
+            y=trace2.values,
+            x=trace2.index.values,
+            name='INCORRECT OPERATION COUNT',
+            marker=dict(
                 color=trace2.values,
-                colorscale = 'Viridis',
-                reversescale = True
-                )
+                colorscale='Viridis',
+                reversescale=True
+            )
         )
 
-        #Natural Force Damage
         trace3 = NATURAL_FORCE_DAMAGE['Cause Subcategory'].value_counts()
         trace3 = go.Bar(
-            y = trace3.values, 
-            x = trace3.index.values, 
-            name = 'NATURAL FORCE DAMAGE COUNT', 
-            
-                marker=dict(
+            y=trace3.values,
+            x=trace3.index.values,
+            name='NATURAL FORCE DAMAGE COUNT',
+            marker=dict(
                 color=trace3.values,
-                colorscale = 'Viridis',
-                reversescale = True
-                )
-            
+                colorscale='Viridis',
+                reversescale=True
+            )
         )
 
-        #EXCAVATION DAMAGE
         trace4 = EXCAVATION_DAMAGE['Cause Subcategory'].value_counts()
         trace4 = go.Bar(
-            y = trace4.values, 
-            x = trace4.index.values, 
-            name = 'EXCAVATION DAMAGE COUNT', 
-            
-                marker=dict(
+            y=trace4.values,
+            x=trace4.index.values,
+            name='EXCAVATION DAMAGE COUNT',
+            marker=dict(
                 color=trace4.values,
-                colorscale = 'Viridis',
-                reversescale = True
-                )
+                colorscale='Viridis',
+                reversescale=True
+            )
         )
-        #OTHER OUTSIDE FORCE DAMAGE 
+
         trace5 = OTHER_OUTSIDE_FORCE_DAMAGE['Cause Subcategory'].value_counts()
         trace5 = go.Bar(
-            y = trace5.values, 
-            x = trace5.index.values, 
-            name = 'OTHER OUTSIDE FORCE DAMAGE COUNT', 
-            
-                marker=dict(
+            y=trace5.values,
+            x=trace5.index.values,
+            name='OTHER OUTSIDE FORCE DAMAGE COUNT',
+            marker=dict(
                 color=trace5.values,
-                colorscale = 'Viridis',
-                reversescale = True
-                )
+                colorscale='Viridis',
+                reversescale=True
+            )
         )
 
-        #ALL OTHER CAUSES
         trace6 = ALL_OTHER_CAUSES['Cause Subcategory'].value_counts()
         trace6 = go.Bar(
-            y = trace6.values, 
-            x = trace6.index.values, 
-            name = 'ALL OTHER CAUSES COUNT', 
-                
-                marker=dict(
+            y=trace6.values,
+            x=trace6.index.values,
+            name='ALL OTHER CAUSES COUNT',
+            marker=dict(
                 color=trace6.values,
-                colorscale = 'Viridis',
-                reversescale = True
-                )
+                colorscale='Viridis',
+                reversescale=True
+            )
         )
-        #Creating the grid 
+
         fig = tls.make_subplots(rows=3, cols=3,
                                 subplot_titles=('MATERIAL/WELD/EQUIPMENT FAILURE',
-                                                'CORROSION','INCORRECT OPERATION', 'NATURAL FORCE DAMAGE','EXCAVATION DAMAGE','OTHER OUTSIDE FORCE DAMAGE','ALL OTHER CAUSES' ), 
-                            )
+                                                'CORROSION', 'INCORRECT OPERATION', 'NATURAL FORCE DAMAGE',
+                                                'EXCAVATION DAMAGE', 'OTHER OUTSIDE FORCE DAMAGE', 'ALL OTHER CAUSES'),
+                                )
 
-        #setting the figs 
         fig.append_trace(trace0, 1, 1)
         fig.append_trace(trace1, 1, 2)
         fig.append_trace(trace2, 1, 3)
@@ -414,21 +471,32 @@ def EF_KPIs():
         fig.append_trace(trace5, 2, 3)
         fig.append_trace(trace6, 3, 1)
 
-        fig['layout']['xaxis3'].update( tickangle=90)
-        fig['layout']['xaxis4'].update( tickangle=90)
-        fig['layout']['xaxis5'].update( tickangle=90)
+        fig['layout']['xaxis3'].update(tickangle=90)
+        fig['layout']['xaxis4'].update(tickangle=90)
+        fig['layout']['xaxis5'].update(tickangle=90)
 
         fig['layout']['yaxis1'].update(range=[0, 400])
-        fig['layout']['yaxis2'].update(range=[0, 400],showticklabels=False)
-        fig['layout']['yaxis3'].update(range=[0, 400],showticklabels=False)
+        fig['layout']['yaxis2'].update(range=[0, 400], showticklabels=False)
+        fig['layout']['yaxis3'].update(range=[0, 400], showticklabels=False)
         fig['layout']['yaxis4'].update(range=[0, 400])
-        fig['layout']['yaxis5'].update(range=[0, 400],showticklabels=False)
-        fig['layout']['yaxis6'].update(range=[0, 400],showticklabels=False)
+        fig['layout']['yaxis5'].update(range=[0, 400], showticklabels=False)
+        fig['layout']['yaxis6'].update(range=[0, 400], showticklabels=False)
         fig['layout']['yaxis7'].update(range=[0, 400])
 
-        fig['layout'].update( title='CAUSES FOR OIL PIPELINE SPILLS', 
-                            height=2600, width=900,showlegend=False, 
-                            
-            )
-        # py.iplot(fig, filename='customizing-subplot-axes')
-        st.plotly_chart(fig, filename='customizing-subplot-axes')
+        fig['layout'].update(title='CAUSES FOR OIL PIPELINE SPILLS',
+                            height=2600, width=900, showlegend=False,
+                            )
+
+        # Center the output
+        st.plotly_chart(fig, use_container_width=True)
+        st.markdown(
+            """
+            <style>
+            .streamlit-container {
+                display: flex;
+                justify-content: center;
+            }
+            </style>
+            """,
+            unsafe_allow_html=True,
+        )

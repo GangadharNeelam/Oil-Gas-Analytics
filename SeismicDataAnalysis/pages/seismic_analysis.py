@@ -48,7 +48,8 @@ def seismic_analysis_page():
             fig.update_layout(title=f'Seismic Section at Depth {selected_depth}',
                             xaxis_title='Crossline',
                             yaxis_title='Inline')
-            st.plotly_chart(fig)
+            # st.plotly_chart(fig)
+            st.plotly_chart(fig, use_container_width=True)
 
         elif selected_graph == "Amplitude Envelope":
             # Calculate and visualize the amplitude envelope using scipy.signal.hilbert with Plotly
@@ -59,7 +60,7 @@ def seismic_analysis_page():
             fig.update_layout(title=f'Amplitude Envelope at Depth {selected_depth}',
                             xaxis_title='Crossline',
                             yaxis_title='Inline')
-            st.plotly_chart(fig)
+            st.plotly_chart(fig, use_container_width=True)
 
     elif selected_data == "AI Data":
         # Radio buttons for choosing the type of graph
@@ -74,7 +75,7 @@ def seismic_analysis_page():
             fig.update_layout(title=f'AI Section at Depth {selected_depth}',
                             xaxis_title='Crossline',
                             yaxis_title='Inline')
-            st.plotly_chart(fig)
+            st.plotly_chart(fig, use_container_width=True)
 
         elif selected_graph == "Histogram":
             # Plot histogram of AI values at the selected depth using Plotly
@@ -84,7 +85,7 @@ def seismic_analysis_page():
             fig.update_layout(title=f'AI Histogram at Depth {selected_depth}',
                             xaxis_title='Acoustic Impedance',
                             yaxis_title='Frequency')
-            st.plotly_chart(fig)
+            st.plotly_chart(fig, use_container_width=True)
 
         elif selected_graph == "3D Visualization":
             # Create a 3D visualization of AI data using Plotly
@@ -96,7 +97,7 @@ def seismic_analysis_page():
                             scene=dict(xaxis_title='Inline',
                                         yaxis_title='Crossline',
                                         zaxis_title='Acoustic Impedance'))
-            st.plotly_chart(fig)
+            st.plotly_chart(fig, use_container_width=True)
 
     elif selected_data == "Fault Data":
         # Radio buttons for choosing the type of graph
@@ -111,7 +112,7 @@ def seismic_analysis_page():
             fig.update_layout(title=f'Fault Section at Depth {selected_depth}',
                             xaxis_title='Crossline',
                             yaxis_title='Inline')
-            st.plotly_chart(fig)
+            st.plotly_chart(fig, use_container_width=True)
 
         elif selected_graph == "3D Visualization":
             # Create a 3D visualization of fault data using Plotly
@@ -123,4 +124,4 @@ def seismic_analysis_page():
                             scene=dict(xaxis_title='Inline',
                                         yaxis_title='Crossline',
                                         zaxis_title='Fault Data'))
-            st.plotly_chart(fig)
+            st.plotly_chart(fig, use_container_width=True)

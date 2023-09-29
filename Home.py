@@ -13,15 +13,15 @@ from EquipmentFailures.pages.Dashboard_EF import Dashboard_EF
 from EquipmentFailures.pages.Simulation_EF import Simulation_EF
 from SeismicDataAnalysis.pages.seismic_analysis import seismic_analysis_page
 
-st.set_page_config(page_title="Oil&GasAnalytics", layout="wide")
 
 def analytics_page():
-
+    
     with st.sidebar:
     # selected_use_case = st.sidebar.selectbox("Select a use case", ["Oil Production Prediction", "Accident Analysis", "Equipment Failures", "Seismic Data Analysis"])
         selected_use_case = st.radio("", ["Oil Production Prediction", "Accident Analysis", "Equipment Failures", "Seismic Data Analysis"],
         )
     # Display content based on the selected use case
+    
     if selected_use_case == "Oil Production Prediction":
         st.markdown("<h1 style='text-align: center;'>Oil Production Prediction</h1>", unsafe_allow_html=True)
         # Custom HTML and CSS styles for a professional and attractive header
@@ -104,12 +104,20 @@ def analytics_page():
         if selected_option == "Predictive Analytics":
             st.write("")
         elif selected_option == "Simulation":
-            seismic_analysis_page()
-        elif selected_option == "KPIs":
             st.write("")
+        elif selected_option == "KPIs":
+            
+            seismic_analysis_page()
         
 
 if __name__ == "__main__":
+
+    st.set_page_config(page_title="Oil&GasAnalytics", layout="wide")
+
+    # image = Image.open('./Analytics/data/celebal_logo.png')
+    # resized_image = image.resize((180, 70))
+    # st.sidebar.image(resized_image)
+    
     with st.sidebar:
         selected_page = option_menu(
             options=["Home", "Analytics"],
@@ -126,40 +134,8 @@ if __name__ == "__main__":
 
         image = Image.open('./Analytics/data/oil.jpg')
         st.image(image, caption='Oil & Gas Analytics Platform',use_column_width=True)
+        
 
     elif selected_page == "Analytics":
         # st.markdown("<h1 style='text-align: center;'>Analytics Overview</h1>", unsafe_allow_html=True)
         analytics_page()
-
-
-# custom_css = """
-# <style>
-#     :root {
-#         --chatbot-width: 300px; /* Adjust the width as needed */
-#         --chatbot-height: 400px; /* Adjust the height as needed */
-#     }
-
-#     df-messenger {
-#         position: fixed;
-#         bottom: 20px; /* Adjust the distance from the bottom */
-#         right: 20px; /* Adjust the distance from the right */
-#         width: var(--chatbot-width);
-#         height: var(--chatbot-height);
-#         z-index: 1000; /* Ensure it's above other elements */
-#     }
-# </style>
-# """
-
-# st.components.v1.html(
-#      """
-#    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
-# <df-messenger
-#   intent="WELCOME"
-#   chat-title="Veera"
-#   agent-id="7959f1f1-a347-411a-abd4-ed55aaaa1d41"
-#   language-code="en"
-# ></df-messenger>
-#     """,
-#      height=700, # try various values to see what works best (maybe use st.slider)
-#  )
-# st.markdown(custom_css, unsafe_allow_html=True)

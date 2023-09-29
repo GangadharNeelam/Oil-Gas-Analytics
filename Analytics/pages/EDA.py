@@ -24,29 +24,53 @@ def Oil_Production_KPIs():
         # Create a multiselect dropdown for selecting features
         default_selected_options = ['proppant volume', 'well spacing', 'proppant fluid ratio', 'production']
         selected_options = st.multiselect("", data.columns.tolist(), default=default_selected_options)
-        
+
         if selected_options:
-            st.write(data[selected_options].describe())
+            # Display summary statistics
+            summary_stats = data[selected_options].describe()
+            st.write(summary_stats)
+
+            # Center the output
+            st.markdown(
+                """
+                <style>
+                .streamlit-container {
+                    display: flex;
+                    justify-content: center;
+                }
+                </style>
+                """,
+                unsafe_allow_html=True,
+            )
         else:
             st.warning("Please select at least one feature.")
 
-
-    elif selected_option=="Production Rate vs Proppant Volume":
+    elif selected_option == "Production Rate vs Proppant Volume":
         fig = px.scatter(data, x='production', y='proppant volume', 
-                    title="Production Rate vs Proppant Volume",
-                    labels={'production': 'Production Rate', 'proppant volume': 'Proppant Volume in tons'})
-        
-        
-        st.plotly_chart(fig)
+                        title="Production Rate vs Proppant Volume",
+                        labels={'production': 'Production Rate', 'proppant volume': 'Proppant Volume in tons'})
+
+        # Plotly chart with CSS styling for centering
+        st.plotly_chart(fig, use_container_width=True)
+        st.markdown(
+            """
+            <style>
+            .stPlotlyChart {
+                margin: 0 auto;
+            }
+            </style>
+            """,
+            unsafe_allow_html=True,
+        )
 
 
-    elif selected_option=="Average Production by Month":
-
-        data['date on production'] = pd.to_datetime(data['date on production'],format='%m/%d/%Y')
-
+    elif selected_option == "Average Production by Month":
+        data['date on production'] = pd.to_datetime(data['date on production'], format='%m/%d/%Y')
         data['month'] = data['date on production'].dt.month
+
         # Group data by month and calculate the mean production for each month
         monthly_production = data.groupby('month')['production'].mean()
+
         fig = px.bar(
             x=monthly_production.index,
             y=monthly_production,
@@ -57,11 +81,23 @@ def Oil_Production_KPIs():
         fig.update_xaxes(tickvals=list(range(1, 13)), ticktext=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])
         fig.update_yaxes(title="Average Production")
 
-        st.plotly_chart(fig)
+        # Center the output
+        st.plotly_chart(fig, use_container_width=True)
+        st.markdown(
+            """
+            <style>
+            .streamlit-container {
+                display: flex;
+                justify-content: center;
+            }
+            </style>
+            """,
+            unsafe_allow_html=True,
+        )
 
 
-    elif selected_option=="Average Well Spacing by Treatment Company":
-        
+
+    elif selected_option == "Average Well Spacing by Treatment Company":
         fig = px.bar(
             data,
             x='treatment company',
@@ -72,10 +108,21 @@ def Oil_Production_KPIs():
         fig.update_xaxes(title="Treatment Company", tickangle=90)
         fig.update_yaxes(title="Average Well Spacing")
 
-        st.plotly_chart(fig)
-        
-    elif selected_option=="Production Trends":
-        
+        # Center the output
+        st.plotly_chart(fig, use_container_width=True)
+        st.markdown(
+            """
+            <style>
+            .streamlit-container {
+                display: flex;
+                justify-content: center;
+            }
+            </style>
+            """,
+            unsafe_allow_html=True,
+        )
+
+    elif selected_option == "Production Trends":
         trend_option = st.selectbox("Select Trend Type:", ["Yearly Trend", "Monthly Trend"])
         
         data['date on production'] = pd.to_datetime(data['date on production'], format='%m/%d/%Y')
@@ -90,7 +137,7 @@ def Oil_Production_KPIs():
             yearly_data = data[data['date on production'].dt.year == selected_year]
 
             yearly_data['month'] = yearly_data['date on production'].dt.month
-        # Group data by month and calculate the mean production for each month
+            # Group data by month and calculate the mean production for each month
             monthly_production = yearly_data.groupby('month')['production'].mean()
 
             fig = px.line(
@@ -102,10 +149,20 @@ def Oil_Production_KPIs():
             fig.update_xaxes(tickvals=list(range(1, 13)), ticktext=['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])
             fig.update_yaxes(title="Production in barrels")
             # fig.update_traces(mode='lines+markers')
-            st.plotly_chart(fig)
+            st.plotly_chart(fig, use_container_width=True)
+            st.markdown(
+                """
+                <style>
+                .streamlit-container {
+                    display: flex;
+                    justify-content: center;
+                }
+                </style>
+                """,
+                unsafe_allow_html=True,
+            )
 
         elif trend_option == "Yearly Trend":
-
             yearly_production = data.groupby('year')['production'].sum()
             fig = px.line(
                 x=yearly_production.index,
@@ -117,4 +174,16 @@ def Oil_Production_KPIs():
             fig.update_xaxes(title="Year")
             fig.update_yaxes(title="Production in barrels")
 
-            st.plotly_chart(fig)
+            # Center the output
+            st.plotly_chart(fig, use_container_width=True)
+            st.markdown(
+                """
+                <style>
+                .streamlit-container {
+                    display: flex;
+                    justify-content: center;
+                }
+                </style>
+                """,
+                unsafe_allow_html=True,
+            )
