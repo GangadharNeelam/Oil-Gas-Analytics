@@ -37,7 +37,7 @@ def Dashboard():
 
     # Create buttons for DataFrame and Graph
     show_df = st.checkbox("Predictions")
-    show_graph = st.checkbox("Comparision")
+    show_graph = st.checkbox("Model Performance")
 
     if show_df:
         # st.write(f"## Model: {selected_model})")
