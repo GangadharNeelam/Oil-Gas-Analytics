@@ -34,7 +34,7 @@ def seismic_analysis_page():
 
     f"Number of inlines: {seismic.shape[0]}, crosslines: {seismic.shape[1]}, samples: {seismic.shape[2]}"
 
-    selected_data = st.selectbox("Select Graph Type:", ["Seismic Data", "AI Data", "Fault Data"])
+    selected_data = st.selectbox("Select Data:", ["Seismic Data", "AI Data", "Fault Data"])
 
     if selected_data == "Seismic Data":
         selected_graph = st.radio("Select Graph Type:", ["Seismic Section", "Amplitude Envelope"])

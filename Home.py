@@ -14,36 +14,42 @@ from EquipmentFailures.pages.Simulation_EF import Simulation_EF
 from SeismicDataAnalysis.pages.seismic_analysis import seismic_analysis_page
 
 st.set_page_config(page_title="Oil&GasAnalytics", layout="wide")
-header_html = """
-    <style>
-        .header {
-            background-color: red;
-            color: white;
-            text-align: center;
-            padding: 2px;
-        }
-        .company-name {
-            font-weight: bold;
-            font-size: 24px;
-        }
-    </style>
-    <div class="header">
-        <p class="company-name">Oil Gas Analytics</p>
-    </div>
-"""
 
 def analytics_page():
 
-    selected_use_case = st.sidebar.selectbox("Select a use case", ["Oil Production Prediction", "Accident Analysis", "Equipment Failures", "Seismic Data Analysis"])
-
+    with st.sidebar:
+    # selected_use_case = st.sidebar.selectbox("Select a use case", ["Oil Production Prediction", "Accident Analysis", "Equipment Failures", "Seismic Data Analysis"])
+        selected_use_case = st.radio("", ["Oil Production Prediction", "Accident Analysis", "Equipment Failures", "Seismic Data Analysis"],
+        )
     # Display content based on the selected use case
     if selected_use_case == "Oil Production Prediction":
         st.markdown("<h1 style='text-align: center;'>Oil Production Prediction</h1>", unsafe_allow_html=True)
+        # Custom HTML and CSS styles for a professional and attractive header
+        # header_html = f"""
+        #     <style>
+        #         .header {{
+        #             background-color: #3498db; /* Blue color */
+        #             color: white;
+        #             text-align: center;
+        #             padding: 20px;
+        #             margin-bottom: 20px;
+        #         }}
+        #         .company-name {{
+        #             font-weight: bold;
+        #             font-size: 36px;
+        #         }}
+        #     </style>
+        #     <div class="header">
+        #         <p class="company-name">{"Oil"}</p>
+        #     </div>
+        # """
+        # st.markdown(header_html, unsafe_allow_html=True)
         # selected_option = st.selectbox("Select a page", ["KPIs", "Dashboard", "Simulation"])
         st.markdown("<br><br>", unsafe_allow_html=True)
         selected_option = option_menu(
             options=["KPIs", "Dashboard", "Simulation"],
             orientation="horizontal",
+            icons=["📊", "📈", "📉"],
             menu_title=None)
 
         if selected_option == "Dashboard":
@@ -63,6 +69,7 @@ def analytics_page():
         selected_option = option_menu(
             options=["Dashboard", "Simulation"],
             orientation="horizontal",
+            icons=["📈", "📉"],
             menu_title=None)
         
         if selected_option == "Dashboard":
@@ -79,6 +86,7 @@ if __name__ == "__main__":
     with st.sidebar:
         selected_page = option_menu(
             options=["Home", "Analytics"],
+            icons=["🏠", "📊"],
             menu_title=None
         )
 
@@ -95,3 +103,36 @@ if __name__ == "__main__":
     elif selected_page == "Analytics":
         # st.markdown("<h1 style='text-align: center;'>Analytics Overview</h1>", unsafe_allow_html=True)
         analytics_page()
+
+
+# custom_css = """
+# <style>
+#     :root {
+#         --chatbot-width: 300px; /* Adjust the width as needed */
+#         --chatbot-height: 400px; /* Adjust the height as needed */
+#     }
+
+#     df-messenger {
+#         position: fixed;
+#         bottom: 20px; /* Adjust the distance from the bottom */
+#         right: 20px; /* Adjust the distance from the right */
+#         width: var(--chatbot-width);
+#         height: var(--chatbot-height);
+#         z-index: 1000; /* Ensure it's above other elements */
+#     }
+# </style>
+# """
+
+# st.components.v1.html(
+#      """
+#    <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+# <df-messenger
+#   intent="WELCOME"
+#   chat-title="Veera"
+#   agent-id="7959f1f1-a347-411a-abd4-ed55aaaa1d41"
+#   language-code="en"
+# ></df-messenger>
+#     """,
+#      height=700, # try various values to see what works best (maybe use st.slider)
+#  )
+# st.markdown(custom_css, unsafe_allow_html=True)
