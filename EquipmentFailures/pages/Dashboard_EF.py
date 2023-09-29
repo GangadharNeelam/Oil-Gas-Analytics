@@ -56,7 +56,7 @@ def Dashboard_EF():
 
     class_labels = ['Not Failure', 'Failure']
 
-    if st.button("Comparison"):
+    if st.button("Model Performance"):
         def plot_predictions(actual, predicted):
             # Calculate confusion matrix
             conf_matrix = confusion_matrix(actual, predicted)
