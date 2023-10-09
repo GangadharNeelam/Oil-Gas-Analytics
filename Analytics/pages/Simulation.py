@@ -9,7 +9,6 @@ def Simulation():
     default_values = {
         "md (ft)": 1.914800e+04,
         "tvd (ft)": 6.443000e+03,
-        "date on production": 1.519862e+09,
         "footage lateral length": 1.196600e+04,
         "porpoise count": 1.200000e+01,
         "shale footage": 1.093000e+03,
@@ -52,15 +51,15 @@ def Simulation():
     model4=joblib.load("./Analytics/model/grad_bos_reg_Model.pkl")
     st.subheader("Oil Production Prediction with Different Models")
     selected_model = st.selectbox("Select a model:", 
-                                ["XgBOOST (94.02% accuracy)","LightGBM (96.39% accuracy)","Random Forest Regresssor (94.2% accuracy)","Gradient Boosting (accuracy 96.02%)"])
+                                ["XgBOOST (96.06% accuracy)","LightGBM (95.3% accuracy)","Random Forest Regresssor (92.2% accuracy)","Gradient Boosting (accuracy 96.03%)"])
 
-    if selected_model == "XgBOOST (94.02% accuracy)":
+    if selected_model == "XgBOOST (96.06% accuracy)":
         prediction = model1.predict(test_input)
-    elif selected_model == "LightGBM (96.39% accuracy)":
+    elif selected_model == "LightGBM (95.3% accuracy)":
         prediction = model2.predict(test_input)
-    elif selected_model == "Random Forest Regresssor (94.2% accuracy)":
+    elif selected_model == "Random Forest Regresssor (92.2% accuracy)":
         prediction =model3. predict(test_input)
-    elif selected_model == "Gradient Boosting (accuracy 96.02%)":
+    elif selected_model == "Gradient Boosting (accuracy 96.03%)":
         prediction = model4.predict(test_input)
 
     # Display the prediction

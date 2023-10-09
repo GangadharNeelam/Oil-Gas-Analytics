@@ -8,22 +8,25 @@ def Dashboard():
     model4 = joblib.load("./Analytics/model/grad_bos_reg_Model.pkl")
 
     df = pd.read_csv('./Analytics/data/testing.csv')
-
+    # if st.checkbox("Show Dataset"):
+    #     number_of_records = st.number_input("Number of records to view", value=20)
+    #     df = df.head(number_of_records)
+    #     st.write(df)
     # st.write(df.shape)
     st.subheader("Actual vs Predicted Production")
-    selected_model = st.selectbox("Select a model:", ["XgBOOST (94.02% accuracy)","LightGBM (96.39% accuracy)","Random Forest Regresssor (94.2% accuracy)","Gradient Boosting (accuracy 96.02%)"])
+    selected_model = st.selectbox("Select a model:", ["XgBOOST (96.06% accuracy)","LightGBM (96.39% accuracy)","Random Forest Regresssor (92.27% accuracy)","Gradient Boosting (accuracy 96.03%)"])
 
     number_of_records = st.number_input("Select number of records", value=20)
     df = df.head(number_of_records)
 
     def predict_and_get_df(selected_model):
-        if selected_model == "XgBOOST (94.02% accuracy)":
+        if selected_model == "XgBOOST (96.06% accuracy)":
             model = model1
         elif selected_model == "LightGBM (96.39% accuracy)":
             model = model2
-        elif selected_model == "Random Forest Regresssor (94.2% accuracy)":
+        elif selected_model == "Random Forest Regresssor (92.27% accuracy)":
             model = model3
-        elif selected_model == "Gradient Boosting (accuracy 96.02%)":
+        elif selected_model == "Gradient Boosting (accuracy 96.03%)":
             model = model4
         else:
             st.warning("Please select a model.")

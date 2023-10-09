@@ -8,10 +8,15 @@ from streamlit_option_menu import option_menu
 from Analytics.pages.Dashboard import Dashboard
 from Analytics.pages.EDA import Oil_Production_KPIs
 from Analytics.pages.Simulation import Simulation
-from EquipmentFailures.pages.EDA_EF import EF_KPIs
+
 from EquipmentFailures.pages.Dashboard_EF import Dashboard_EF
 from EquipmentFailures.pages.Simulation_EF import Simulation_EF
+
 from SeismicDataAnalysis.pages.seismic_analysis import seismic_analysis_page
+
+from AccidentAnalysis.pages.AA_KPIs import AA_KPIs
+from AccidentAnalysis.pages.predictive_analytics_AA import PredictiveAnalyticsAA
+from AccidentAnalysis.pages.Simulation_AA import Simulation_AA
 
 
 def analytics_page():
@@ -59,6 +64,7 @@ def analytics_page():
         elif selected_option == "Simulation":
             Simulation()
             st.write("Simulation")
+            
     elif selected_use_case == "Accident Analysis":
         st.markdown("<h1 style='text-align: center;'>Accident Analysis</h1>", unsafe_allow_html=True)
         # EF_KPIs()
@@ -70,9 +76,11 @@ def analytics_page():
             menu_title=None)
 
         if selected_option == "Predictive Analytics":
-            st.write("")
+            PredictiveAnalyticsAA()
         elif selected_option == "KPIs":
-            EF_KPIs()
+            AA_KPIs()
+        elif selected_option == "Simulation":
+            Simulation_AA()
 
         
     elif selected_use_case == "Equipment Failures":
