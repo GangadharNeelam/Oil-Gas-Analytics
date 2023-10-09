@@ -3,36 +3,17 @@ import plotly.graph_objects as go
 
 
 def AA_KPIs():
-    # Load the Iris dataset (you can replace this with your own dataset)
     data=pd.read_csv("./AccidentAnalysis/data/Database.csv")
     data.drop('Unnamed: 0', axis=1, inplace=True)
 
-    # Streamlit app title
-    # st.title("Exploratory Data Analysis (EDA)")
-
-    # Sidebar with options
-    # st.sidebar.title("Options")
     show_data = st.checkbox("Show Dataset")
     
-    # selected_feature = st.sidebar.selectbox("Select a Feature for Analysis", data.columns)
-
-    # Show the dataset if selected
     if show_data:
         st.subheader("Historical data")
         st.write(data)
 
     st.markdown("<br>", unsafe_allow_html=True)
 
-    # EDA Section
-    # st.subheader("Exploratory Data Analysis")
-
-    # selected_category = st.selectbox("Select a category:", ("Descriptive Analytics", "Predictive Analytics"))
-
-    # if selected_category == "Descriptive Analytics":
-    #     # st.header("Descriptive Analytics")
-    #     # Create radio buttons for options in the Descriptive Analytics category
-
-        
     selected_option = st.radio("Select an option:", [
         "Summary Statistics",
         "Accident Locations",
@@ -45,14 +26,6 @@ def AA_KPIs():
         # "Root Causes",
         "Causes for Oil Pipeline Spills"
     ])
-
-# List of options
-# options = ["Summary Statistics", "Trends", "Accident locations", "Accident Cause", "Root Causes", "Loss per Each State", "State And Liquid wise Loss", "Pipeline Locations", "Costs by Liquid Type and Pipeline Type", "Causes for Oil Pipeline Pills"]
-# Display radio buttons for selecting one option
-# selected_option = st.radio("Select one option:", options)
-
-# Display the selected option
-    # st.write("You selected:", selected_option)
 
     if selected_option=="Summary Statistics":
 

@@ -59,4 +59,14 @@ def OP_PredictiveAnalytics():
             fig.update_traces(line=dict(color='blue'), selector=dict(name='Actual'))
             fig.update_traces(line=dict(color='red'), selector=dict(name='Predicted'))
             
-            st.plotly_chart(fig)
+            st.plotly_chart(fig, use_container_width=True)
+            st.markdown(
+                """
+                <style>
+                .stPlotlyChart {
+                    margin: 0 auto;
+                }
+                </style>
+                """,
+                unsafe_allow_html=True,
+            )

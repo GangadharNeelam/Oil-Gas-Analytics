@@ -10,14 +10,11 @@ def EF_Predictive_Analytics():
 
     # Load your dataset (replace with your dataset file)
     df = pd.read_csv('./EquipmentFailures/data/new_data.csv')
-    # st.write(df)
-    # df.drop('target', axis=1, inplace=True)
-    # st.write(df.shape)
-    # Create a Streamlit title and selection box for models
+
     st.subheader("Actual vs Predicted Production")
     selected_model = st.selectbox("Select a model:", ["Random Forest Classifier (75% accuracy)", "ADA Boost (70% accuracy)"])
 
-    number_of_records = st.number_input("Select number of records", value=20)
+    number_of_records = st.number_input("Select number of records", value=20, step=10)
     df = df.head(number_of_records)
 
     target = df['target']
@@ -67,36 +64,46 @@ def EF_Predictive_Analytics():
             tn = conf_matrix[0, 0]
             fn = conf_matrix[1, 0]
 
-            # Group positive (both true and false) and negative (both true and false) predictions
-            positive_predictions = tp + fp
-            negative_predictions = tn + fn
-
             fig = go.Figure()
 
-            # Add stacked bar chart
+            # Add separate bars for each category
             fig.add_trace(go.Bar(
-                x=['Failure', 'Not Failure'],
-                y=[tp, tn],
-                name='True Prediction',
+                x=['Failure'],
+                y=[tp],
+                name='True Positive (Failure))',
                 marker=dict(color='green')
             ))
 
             fig.add_trace(go.Bar(
-                x=['Failure', 'Not Failure'],
-                y=[fp, fn],
-                name='False Prediction',
+                x=['Failure'],
+                y=[fp],
+                name='False Positive (Not Failure)',
+                marker=dict(color='red')
+            ))
+
+            fig.add_trace(go.Bar(
+                x=['Not Failure'],
+                y=[tn],
+                name='True Negative (Not Failure)',
+                marker=dict(color='green')
+            ))
+
+            fig.add_trace(go.Bar(
+                x=['Not Failure'],
+                y=[fn],
+                name='False Negative (Failure)',
                 marker=dict(color='red')
             ))
 
             fig.update_layout(
-                barmode='stack',
-                # xaxis=dict(title='Predictions'),
+                barmode='group',
+                xaxis=dict(title='Predictions'),
                 yaxis=dict(title='Number of Parameters'),
                 title='True and False Predictions'
             )
 
             # Display the plot using Streamlit
-            st.plotly_chart(fig)
+            st.plotly_chart(fig, use_container_width=True)
 
         actual_values = target
         predicted_values = pred
