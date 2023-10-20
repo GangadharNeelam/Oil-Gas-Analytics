@@ -3,7 +3,7 @@ from dependencies import *
 from OilProduction.pages.OP_KPI import OP_KPI
 from OilProduction.pages.OP_PredictiveAnalytics import OP_PredictiveAnalytics
 from OilProduction.pages.OP_Simulation import OP_simulation
-
+from OilProduction.pages.OP_forecasting import OP_Forecasting
 from EquipmentFailures.pages.EF_PredictiveAnalytics import EF_Predictive_Analytics
 from EquipmentFailures.pages.EF_Simulation import EF_simulation
 from EquipmentFailures.pages.EF_KPIs import EF_KPIs
@@ -37,6 +37,8 @@ def analytics_page():
             OP_KPI()
         elif selected_option == "Predictive Analytics":
             OP_PredictiveAnalytics()
+            OP_Forecasting()
+
         elif selected_option == "Simulation":
             OP_simulation()
             
